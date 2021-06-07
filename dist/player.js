@@ -1,4 +1,4 @@
-/*! @vimeo/player v2.15.0 | (c) 2021 Vimeo | MIT License | https://github.com/vimeo/player.js */
+/*! @vimeo/player v2.15.3 | (c) 2021 Vimeo | MIT License | https://github.com/vimeo/player.js */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
   typeof define === 'function' && define.amd ? define(factory) :
@@ -1732,7 +1732,13 @@
           }
 
           if (_this5.element && _this5.element.nodeName === 'IFRAME' && _this5.element.parentNode) {
-            _this5.element.parentNode.removeChild(_this5.element);
+            // If we've added an additional wrapper div, remove that from the DOM.
+            // If not, just remove the iframe element.
+            if (_this5.element.parentNode.parentNode && _this5._originalElement && _this5._originalElement !== _this5.element.parentNode) {
+              _this5.element.parentNode.parentNode.removeChild(_this5.element.parentNode);
+            } else {
+              _this5.element.parentNode.removeChild(_this5.element);
+            }
           } // If the clip is private there is a case where the element stays the
           // div element. Destroy should reset the div and remove the iframe child.
 
@@ -1743,7 +1749,13 @@
             var iframe = _this5.element.querySelector('iframe');
 
             if (iframe && iframe.parentNode) {
-              iframe.parentNode.removeChild(iframe);
+              // If we've added an additional wrapper div, remove that from the DOM.
+              // If not, just remove the iframe element.
+              if (iframe.parentNode.parentNode && _this5._originalElement && _this5._originalElement !== iframe.parentNode) {
+                iframe.parentNode.parentNode.removeChild(iframe.parentNode);
+              } else {
+                iframe.parentNode.removeChild(iframe);
+              }
             }
           }
 
