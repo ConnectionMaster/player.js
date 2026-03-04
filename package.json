@@ -136,8 +136,5 @@
     "Firefox ESR",
     "not dead"
   ],
-  "volta": {
-    "node": "18.20.8",
-    "yarn": "1.22.22"
-  }
+  "packageManager": "yarn@1.22.22"
 }
